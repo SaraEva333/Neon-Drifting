@@ -7,18 +7,25 @@ public class ObjectMove : MonoBehaviour
     public float s;
 
     // Start is called before the first frame update
-    void Start()
+    void Start() //скорость движения сцены
     {
-        s = 0.13f;
-
+   
     }
+
     void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x - s, transform.position.y, 0);
-        if (transform.position.x <=-17.5f)
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager != null && gameManager.isSpawningEnabled)
         {
-
+            s = 0.1f;
+            transform.position = new Vector3(transform.position.x - s, transform.position.y, 0);
         }
-    }
+        else
+        {
+            s = 0;
+            transform.position = new Vector3(transform.position.x,transform.position.y, 0);
+        }
 
+    }
 }
