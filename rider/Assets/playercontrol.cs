@@ -37,7 +37,7 @@ public class playercontrol : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            float moveX = -0.5f;
+            float moveX = -1f;
             rgb.MovePosition(rgb.position + Vector2.right * moveX  * Time.deltaTime * 30);
         }
 

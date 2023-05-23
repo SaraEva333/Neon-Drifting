@@ -1,18 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class menu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject menu;
+    public GameObject sound;
+
+    private void Start()
     {
-        
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        // Проверка, находится ли уже активная сцена в режиме меню
+        if (SceneManager.GetActiveScene().name == "MenuScene")
+        {
+            // Активировать канву меню
+            menu.SetActive(true);
+            sound.SetActive(false);
+            gameManager.isSpawningEnabled=false;
+        }
+        else
+        {
+            // Скрыть канву меню
+            menu.SetActive(false);
+            sound.SetActive(false);
+            gameManager.isSpawningEnabled = true;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Play()
     {
-        
+        menu.SetActive(false);
+        sound.SetActive(false);
+        // Загрузить сцену игры
+        SceneManager.LoadScene("SampleScene");
+    }
+    public void Sound()
+    {
+        menu.SetActive(false);
+        sound.SetActive(true);
+
+    }
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

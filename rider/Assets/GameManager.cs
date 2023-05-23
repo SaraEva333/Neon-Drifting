@@ -33,13 +33,16 @@ public class GameManager : MonoBehaviour
 
     private void CreateObjects()
     {
-        GameObject sceneParent = new GameObject("SceneParent");
-        GameObject scenePrefab = Instantiate(objects, new Vector3(-5.8f, 3.89f, 0), Quaternion.identity, sceneParent.transform);
-        _blocks.Add(sceneParent.transform);
+        if (isSpawningEnabled)
+        {
+            GameObject sceneParent = new GameObject("SceneParent");
+            GameObject scenePrefab = Instantiate(objects, new Vector3(-5.8f, 3.89f, 0), Quaternion.identity, sceneParent.transform);
+            _blocks.Add(sceneParent.transform);
 
-        int randomIndex = Random.Range(0, obstaclePrefabs.Length); // Get a random index from the obstaclePrefabs array
-        GameObject obstaclePrefab = Instantiate(obstaclePrefabs[randomIndex], GetRandomPositionWithinBounds(scenePrefab), Quaternion.identity, scenePrefab.transform);
-        _blocks.Add(obstaclePrefab.transform);
+            int randomIndex = Random.Range(0, obstaclePrefabs.Length); // Get a random index from the obstaclePrefabs array
+            GameObject obstaclePrefab = Instantiate(obstaclePrefabs[randomIndex], GetRandomPositionWithinBounds(scenePrefab), Quaternion.identity, scenePrefab.transform);
+            _blocks.Add(obstaclePrefab.transform);
+        }
     }
 
     private Vector3 GetRandomPositionWithinBounds(GameObject scenePrefab)
