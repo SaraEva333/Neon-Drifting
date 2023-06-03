@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class playercontrol : MonoBehaviour
 {
 
     public bool isDead=false;
+    public Text Coin;
+    public int coinScore =0;
     public GameObject gameOver;
     public float speed = 1000f;
     public Transform groundCheck;
@@ -35,6 +38,12 @@ public class playercontrol : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.tag == "Coin")
+        {
+            coinScore += 5;
+            Coin.text = coinScore.ToString();
+
+        }
         if (collision.tag == "Enemy")
         {
             float moveX = -1f;

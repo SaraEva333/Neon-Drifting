@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - BG_MUSIC_VOLUME_SLIDER
   - BG_MUSIC_VOLUME_TEXT
+  - Coin
   layers:
   - Default
   - TransparentFX

@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour
     public GameObject[] obstaclePrefabs; // Array of obstacle prefabs
     private List<Transform> _blocks;
     public bool isSpawningEnabled = true;
+    public GameObject coinPrefab;
+
     void Start()
     {
-        InvokeRepeating("CreateObjects", 0, 1.73f);
+        InvokeRepeating("CreateObjects", 0, 1f); // Изменяем интервал на 1 секунду
         _blocks = new List<Transform>();
-
-
     }
 
     private void Update()
@@ -23,13 +23,16 @@ public class GameManager : MonoBehaviour
             return;
 
         foreach (Transform block in _blocks)
+        {
             if (block.localPosition.x < -30)
             {
                 Destroy(block.gameObject);
                 _blocks.Remove(block);
                 break;
             }
+        }
     }
+
 
     private void CreateObjects()
     {
@@ -39,9 +42,13 @@ public class GameManager : MonoBehaviour
             GameObject scenePrefab = Instantiate(objects, new Vector3(-5.8f, 3.89f, 0), Quaternion.identity, sceneParent.transform);
             _blocks.Add(sceneParent.transform);
 
-            int randomIndex = Random.Range(0, obstaclePrefabs.Length); // Get a random index from the obstaclePrefabs array
+            int randomIndex = Random.Range(0, obstaclePrefabs.Length);
             GameObject obstaclePrefab = Instantiate(obstaclePrefabs[randomIndex], GetRandomPositionWithinBounds(scenePrefab), Quaternion.identity, scenePrefab.transform);
             _blocks.Add(obstaclePrefab.transform);
+
+            // Spawn coin
+            GameObject coinObject = Instantiate(coinPrefab, GetRandomPositionWithinBounds(scenePrefab), Quaternion.identity, scenePrefab.transform);
+            _blocks.Add(coinObject.transform);
         }
     }
 
@@ -64,9 +71,8 @@ public class GameManager : MonoBehaviour
 
     public void StopMovement()
     {
-        
+        // Implement your stop movement logic here
     }
-
 }
 
 
